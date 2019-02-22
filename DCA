@@ -1,0 +1,139 @@
+#
+# GENERAL SETTINGS
+#
+
+# DCA is a method for averaging down the price of a losing trade, hoping the price will come up to your lower average buy price.
+DEFAULT_DCA_max_cost = 500
+# Define max amount of times DCA is allowed to buy a pair.
+DEFAULT_DCA_max_buy_times = 15
+#
+# Set the maximum number of coins that are permitted to DCA at any given time.
+# If not set (including missing from the file completely) then there is no limit and all coins can be DCA'd.
+# DCA_max_trading_pairs = 6
+#
+# Only buy coins if the buy cost will not let your balance go below specified amount
+DCA_keep_balance = 0
+# Only buy coins if the buy cost will not let your balance go below specified amount in %
+DCA_keep_balance_percentage = 25
+
+#
+# BUY FILTER SETTINGS
+#
+
+# Allow DCA to buy if there's enough volume in order book to fill the order.
+DEFAULT_DCA_min_buy_volume = 25
+# Max spread % between lowest ask and highest bid to allow a new buy order.
+#1-3 %
+DEFAULT_DCA_max_buy_spread = 1.5
+# Only place a buy order if there's enough volume in order book to fill the order.
+DEFAULT_DCA_min_orderbook_volume_percentage = 50
+# The timeout period (in minutes) that the bot is not allowed to buy a coin after it was last DCA'ed.
+DEFAULT_DCA_rebuy_timeout = 30
+# Only purchase a pair if the 24 hour percentage change is above the min price increase.
+DEFAULT_DCA_buy_min_change_percentage = -7
+# Only purchase a pair if the 24 hour percentage change is below the max price increase.
+DEFAULT_DCA_buy_max_change_percentage = 8
+# Set this value to true to allow DCA to continue buying even if no new buys are allowed as the bot is in Sell Only Mode.
+DEFAULT_DCA_ignore_sell_only_mode = true
+# Set the depth of the orderbook to look back and identify the largest sell order.
+DEFAULT_DCA_sell_wall_orderbook_depth = 100
+# Set the maximum difference allowed from the average order size within the DEFAULT_DCA_sell_wall_orderbook_depth.
+# If this difference is exceeded then the coin will not be bought.
+DEFAULT_DCA_sell_wall_diff_percentage = 5000
+
+#
+# BUY SETTINGS
+#
+
+DEFAULT_DCA_A_buy_strategy_label = Collective
+DEFAULT_DCA_A_buy_strategy = SIGNAL
+
+
+# Set the loss percentage required before a DCA buy can take place.
+DEFAULT_DCA_buy_trigger = -0.25
+# Set the loss % required before a DCA buy can take place when SOM is on.
+# All configured buy strategies must be true and you must have lost at least this amount from your average bought price.
+SOM_DCA_buy_trigger = -6
+
+#
+# Trailing is turned off as we are in an upward trend
+#
+# Once all buy strategies are true, the bot will make note of the current ask price and begin watching.
+# The price needs to fall and then rise by at least the percentage specified in order for a buy to be attempted.
+DEFAULT_DCA_trailing_buy = 0
+# Set the number of times you want to see the price fluctuate into and out of a good trail before making the buy.
+DEFAULT_DCA_trailing_buy_rebound_count = 0
+# Set the percentage of TCV purchased when making a DCA buy.
+DEFAULT_DCA_buy_percentage = 25
+# Set the buy percentage to be used instead of DEFAULT_DCA_buy_percentage when sell only mode (SOM) is on
+SOM_DCA_buy_percentage = -6
+
+# Sets the per trigger level percentage of TCV to purchase when making a DCA buy.
+# Purchase the same number of coins at each DCA level effectively doubling down.
+DEFAULT_DCA_buy_percentage_1 = 75
+DEFAULT_DCA_buy_percentage_2 = 55
+DEFAULT_DCA_buy_percentage_3 = 45.3333333
+DEFAULT_DCA_buy_percentage_4 = 35.3333333
+DEFAULT_DCA_buy_percentage_5 = 25.3333333
+DEFAULT_DCA_buy_percentage_6 = 21.3333333
+DEFAULT_DCA_buy_percentage_7 = 19.3333333
+DEFAULT_DCA_buy_percentage_8 = 17.3333333
+DEFAULT_DCA_buy_percentage_9 = 15.3333333
+DEFAULT_DCA_buy_percentage_10 = 15.3333333
+DEFAULT_DCA_buy_percentage_11 = 12.3333333
+DEFAULT_DCA_buy_percentage_12 = 10.3333333
+DEFAULT_DCA_buy_percentage_13 = 8.3333333
+DEFAULT_DCA_buy_percentage_14 = 5.3333333
+DEFAULT_DCA_buy_percentage_15 = 3.3333333
+#
+# SELL SETTINGS
+#
+
+DEFAULT_DCA_A_sell_strategy = GAIN
+DEFAULT_DCA_A_sell_value = 0.65
+
+
+#
+# Trailing is turned off as we want the sell signal to be the instant the cross happens from uptrend to downtrend.
+# We use GAIN to force the trading pair through its cycle if the cross happens before the GAIN is reached.
+#
+DEFAULT_DCA_trailing_profit_type = DEFAULT
+DEFAULT_DCA_trailing_profit = 0.112
+DEFAULT_DCA_trailing_profit_rebound_count = 0
+#
+# Profits
+#
+# If set to true, Profit Trailer will look at the highest bid order with enough volume rather than just the highest bid order.
+DCA_orderbook_profit_calculation = true
+# Sell the trading pair if profit reaches the set percentage regardless of all sell strategies being true.
+DEFAULT_DCA_max_profit = 18
+# The profit percentage above which the bot will attempt to sell a pair if it has not sold for xx minutes, defined on the line above this.
+DEFAULT_DCA_take_profit_percentage = 10
+# The percentage of price deviation allowed from the DEFAULT_take_profit_percentage before resetting the DEFAULT_take_profit_wait_time.
+DEFAULT_DCA_take_profit_reset_percentage_move = 0.25
+# The time period to wait define in minutes while the profit percentage remains above xx percent, defined on the line below this, but has not yet sold.
+DEFAULT_DCA_take_profit_wait_time = 10
+#
+# Pending Orders
+#
+# If x amount of time in minutes has passed since you bought a coin, create a pending order for that pair
+DEFAULT_DCA_pending_order_wait_time = 0
+# Cancel pending order for specified coin if avg profit reaches specified amount
+DEFAULT_DCA_combined_cancel_pending_trigger = 0
+# If the price has dropped x% since we bought a coin and we have not sold it (and it's in the dca log),
+# create limit sell order for that pair at a price equivalent to your GAIN strategy sell_value.
+DEFAULT_DCA_pending_order_price_drop_trigger = 0
+# Choose to combine pending orders for the same coin into one item in the pending log or keep them as separate items.
+DEFAULT_DCA_combine_pending_orders = false
+#
+# Stop loss triggers
+#
+# Set the value that will trigger a stop loss order. If the value of a coin drops below the set percentage it will be automatically sold for a loss.
+DEFAULT_DCA_stop_loss_trigger = -8
+# Set the amount of minutes that the bot is not allowed to buy a coin after it was sold by stop loss trigger.
+DEFAULT_DCA_stop_loss_timeout = 1440
+# If set to true, Stoploss in DCA will behave the same as in pairs. once the set percentage is reached, the coin will sell as a stoploss.
+# If set to false, stoploss will not occur until DCA is complete.
+DCA_stop_before_complete = false
+# Set to true to sell all of your coins in the DCA Log IMMEDIATELY for current market prices.
+DEFAULT_DCA_panic_sell_enabled = false
